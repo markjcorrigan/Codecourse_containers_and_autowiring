@@ -13,8 +13,7 @@ $container->share('config', function() {
 });
 
 $container->share('database', function ($container) {
-//    return new Database;
-    dump($container);
+    return new Database($container->config);
 });
 
-$container->get('database');
+dump($container->database->connect());
