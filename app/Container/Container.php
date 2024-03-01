@@ -58,12 +58,14 @@ class Container
         }
 
         $reflector = $this->getReflector($name);
+
+
+        if (!$reflector->isInstantiable()) {
+            throw new NotFoundException;
+        }
+        dump($reflector->isInstantiable());
         dump($reflector);
         die();
-//        dump($reflector->isInstantiable());
-//        if (!$reflector->isInstantiable()) {
-//            throw new NotFoundException;
-//        }
 
 //        dump($reflector->getConstructor());
 
