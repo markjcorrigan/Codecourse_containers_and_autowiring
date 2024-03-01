@@ -21,10 +21,10 @@ class Config{
         ]
         ];
 
-    public function __construct()
-    {
-        dump('init');
-    }
+//    public function __construct()
+//    {
+//        dump('init');
+//    }
 
         protected $cache = [];
 
