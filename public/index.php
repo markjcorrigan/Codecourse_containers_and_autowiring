@@ -11,4 +11,4 @@ $container->set('config', function() {
     return new Config;
 });
 
-dump($container->config);
+dump($container->config->get('app.name'));
