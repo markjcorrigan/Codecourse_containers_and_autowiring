@@ -93,18 +93,16 @@ class Container
 //        die();
 
         return array_map(function ($dependency) {
-        dump($dependency);
-        die();
+//        dump($dependency);
+//        die();
 
-//            return 'a';
-
-//        return $this->resolveReflectedDependency($dependency);
+        return $this->resolveReflectedDependency($dependency);
         }, $constructor->getParameters());
     }
 
     protected function resolveReflectedDependency($dependency)
     {
-//        dump($dependency);
+        dump($dependency);
         if (is_null($dependency->getClass())) {
             throw new NotFoundException();
         }
