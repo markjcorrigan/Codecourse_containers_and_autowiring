@@ -15,6 +15,11 @@ class Container
 {
     protected array $items = [];
 
+    public function __construct()
+    {
+        dump('init');
+    }
+
     public function set($name, callable $closure)
     {
         $this->items[$name] = $closure;
