@@ -7,9 +7,7 @@ use App\ExceptionHandler;
 use ReflectionClass;
 
 
-/*
- * I built an exception handler that outputs via class NotFoundException.php to templates/exception.twig
- */
+
 set_exception_handler(new ExceptionHandler());
 
 class Container
@@ -21,10 +19,10 @@ class Container
         $this->items[$name] = $closure;
     }
 
-    public function share($name, callable $closure)
+    public function share($name, callable $closure): void
     {
         $this->items[$name] = function () use ($closure) {
-            static $resolved;
+            static $resolved = null;
 
             if (!$resolved) {
                 $resolved = $closure($this);
@@ -33,12 +31,10 @@ class Container
         };
     }
 
-
     public function has($name)
     {
         return isset($this->items[$name]);
     }
-
 
     public function get($name)
     {
@@ -48,9 +44,6 @@ class Container
         return $this->autowire($name);
     }
 
-    /*
-     * Note I switch out dumps as the v3 lecture proceeds.  Therefore, to anticipate this I have added all the code and will uncomment when I use a particular dump.
-     */
     public function autowire($name)
     {
         if (!class_exists($name)) {
@@ -58,52 +51,28 @@ class Container
         }
 
         $reflector = $this->getReflector($name);
-
-
         if (!$reflector->isInstantiable()) {
             throw new NotFoundException;
         }
-//        dump($reflector->isInstantiable());
-//        dump($reflector);
-//        die();
-
-//        dump($reflector->getConstructor());
-
         if ($constructor = $reflector->getConstructor()) {
-        $dep = $this->getReflectorConstructorDependencies($constructor);
-
-
-
-//            return $reflector->newInstanceArgs(
-//                $this->getReflectorConstructorDependencies($constructor)
-//            );
-
-
-
-
-            dump($dep);
-            die();
-
+            return $reflector->newInstanceArgs(
+                $this->getReflectorConstructorDependencies($constructor)
+            );
         }
         return new $name();
     }
+
+
     protected function getReflectorConstructorDependencies($constructor): array
     {
-//        dump($constructor->getParameters());
-//        die();
-
         return array_map(function ($dependency) {
-//        dump($dependency);
-//        die();
 
-        return $this->resolveReflectedDependency($dependency);
+            return $this->resolveReflectedDependency($dependency);
         }, $constructor->getParameters());
     }
 
     protected function resolveReflectedDependency($dependency)
     {
-//        dump($dependency);
-//        dump($dependency->getClass());
         if (is_null($dependency->getClass())) {
             throw new NotFoundException();
         }

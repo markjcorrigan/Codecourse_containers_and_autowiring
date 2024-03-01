@@ -18,7 +18,7 @@ $container->share(Database::class, function ($container) {
     return new Database($container->get(Config::class));
 });
 
-$container->get(HomeController::class)->index();
+dump($container->get(HomeController::class)->index());
 
 
 
