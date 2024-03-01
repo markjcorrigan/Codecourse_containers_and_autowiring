@@ -2,6 +2,7 @@
 
 namespace App\Container;
 
+use App\Container\Exceptions\NotFoundException;
 use App\ExceptionHandler;
 
 
@@ -19,8 +20,18 @@ class Container
         $this->items[$name] = $closure;
     }
 
+    public function has($name)
+    {
+        return isset($this->items[$name]);
+    }
+
+
     public function get($name)
     {
+        if (!$this->has($name))
+        {
+            throw new NotFoundException('Some text');
+        }
         return $this->items[$name]();
     }
 }

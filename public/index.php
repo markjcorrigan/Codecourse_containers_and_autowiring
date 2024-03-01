@@ -11,4 +11,4 @@ $container->set('config', function() {
     return new Config;
 });
 
-dump($container->get('config'));
+dump($container->has('config'));
