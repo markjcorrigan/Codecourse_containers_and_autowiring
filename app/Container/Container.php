@@ -4,6 +4,7 @@ namespace App\Container;
 
 use App\Container\Exceptions\NotFoundException;
 use App\ExceptionHandler;
+use ReflectionClass;
 
 
 /*
@@ -56,8 +57,9 @@ class Container
             throw new NotFoundException;
         }
 
-//        $reflector = $this->getReflector($name);
-//        dump($reflector);
+        $reflector = $this->getReflector($name);
+        dump($reflector);
+        die();
 //        dump($reflector->isInstantiable());
 //        if (!$reflector->isInstantiable()) {
 //            throw new NotFoundException;
@@ -79,7 +81,31 @@ class Container
 //        }
         return new $name();
     }
+    protected function getReflectorConstructorDependencies($constructor): array
+    {
+//        dump($constructor->getParameters());
+//        die();
 
+        return array_map(function ($dependency) {
+//                dump($dependency);
+//                die();
+            return $this->resolveReflectedDependency($dependency);
+        }, $constructor->getParameters());
+    }
+
+    protected function resolveReflectedDependency($dependency)
+    {
+//        dump($dependency);
+        if (is_null($dependency->getClass())) {
+            throw new NotFoundException();
+        }
+        return $this->get($dependency->getClass()->getName());
+    }
+
+    protected function getReflector($class)
+    {
+        return new ReflectionClass($class);
+    }
 
     public function __get($name)
     {
