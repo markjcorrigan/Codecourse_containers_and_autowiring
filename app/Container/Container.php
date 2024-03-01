@@ -34,4 +34,9 @@ class Container
         }
         return $this->items[$name]();
     }
+
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
 }
