@@ -63,16 +63,16 @@ class Container
         if (!$reflector->isInstantiable()) {
             throw new NotFoundException;
         }
-        dump($reflector->isInstantiable());
-        dump($reflector);
-        die();
+//        dump($reflector->isInstantiable());
+//        dump($reflector);
+//        die();
 
-//        dump($reflector->getConstructor());
+        dump($reflector->getConstructor());
 
-//        if ($constructor = $reflector->getConstructor()) {
-//            return $reflector->newInstanceArgs(
-//                $this->getReflectorConstructorDependencies($constructor)
-//            );
+        if ($constructor = $reflector->getConstructor()) {
+            return $reflector->newInstanceArgs(
+                $this->getReflectorConstructorDependencies($constructor)
+            );
 
 //            $dep = $this->getReflectorConstructorDependencies($constructor);
 
@@ -80,7 +80,7 @@ class Container
 //            dump($dep);
 //            die();
 
-//        }
+        }
         return new $name();
     }
     protected function getReflectorConstructorDependencies($constructor): array
