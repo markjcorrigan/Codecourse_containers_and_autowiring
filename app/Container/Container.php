@@ -102,7 +102,8 @@ class Container
 
     protected function resolveReflectedDependency($dependency)
     {
-        dump($dependency);
+//        dump($dependency);
+        dump($dependency->getClass());
         if (is_null($dependency->getClass())) {
             throw new NotFoundException();
         }
