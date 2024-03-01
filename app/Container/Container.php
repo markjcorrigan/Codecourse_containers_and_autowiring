@@ -67,31 +67,34 @@ class Container
 //        dump($reflector);
 //        die();
 
-        dump($reflector->getConstructor());
+//        dump($reflector->getConstructor());
 
         if ($constructor = $reflector->getConstructor()) {
-            return $reflector->newInstanceArgs(
-                $this->getReflectorConstructorDependencies($constructor)
-            );
+        $dep = $this->getReflectorConstructorDependencies($constructor);
 
-//            $dep = $this->getReflectorConstructorDependencies($constructor);
 
-//
-//            dump($dep);
-//            die();
+
+//            return $reflector->newInstanceArgs(
+//                $this->getReflectorConstructorDependencies($constructor)
+//            );
+
+
+
+
+            dump($dep);
+            die();
 
         }
         return new $name();
     }
     protected function getReflectorConstructorDependencies($constructor): array
     {
-//        dump($constructor->getParameters());
-//        die();
+        dump($constructor->getParameters());
+        die();
 
-        return array_map(function ($dependency) {
-//                dump($dependency);
-//                die();
-            return $this->resolveReflectedDependency($dependency);
+        return array_map(function () {
+
+//            return $this->resolveReflectedDependency($dependency);
         }, $constructor->getParameters());
     }
 
