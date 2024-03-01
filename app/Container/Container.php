@@ -26,7 +26,7 @@ class Container
             static $resolved;
 
             if (!$resolved) {
-                $resolved = $closure();
+                $resolved = $closure($this);
             }
             return $resolved;
         };
@@ -45,7 +45,7 @@ class Container
         {
             throw new NotFoundException('Some text');
         }
-        return $this->items[$name]();
+        return $this->items[$name]($this);
     }
 
     public function __get($name)

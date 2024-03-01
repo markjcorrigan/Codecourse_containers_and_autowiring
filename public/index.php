@@ -2,6 +2,7 @@
 
 use App\Config\Config;
 use App\Container\Container;
+use App\Database\Database;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -11,6 +12,9 @@ $container->share('config', function() {
     return new Config;
 });
 
-dump($container->config->get('app.name'));
-dump($container->config->get('app.name'));
-dump($container->config->get('app.name'));
+$container->share('database', function ($container) {
+//    return new Database;
+    dump($container);
+});
+
+$container->get('database');
