@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Error</title>
+</head>
+<body>
+<h1>Fatal error</h1>
+<p>Uncaught exception:  <?= get_class($e) ?> </p>
+<h3>
+    <?= $e->getMessage() ?>
+</h3>
+
+<p>Message:  <?= $e->getMessage() ?> </p>
+
+
+<ul>
+    <li>
+        Code: <?= $e->getCode() ?>
+    </li>
+    <li>
+        File: <?= $e->getFile() ?>
+    </li>
+    <li>
+        Line: <?= $e->getLine() ?>
+    </li>
+</ul>
+
+
+
+<p>Stack trace:<pre> <?=  $e->getTraceAsString() ?></pre>
+<p>Thrown in <?=  $e->getFile()  ?> on line <?=  $e->getLine() ?></p>
+<div>
+    <?php foreach ($e->getTrace() as $trace): ?>
+    <div>
+        <?= $trace['file'] ?> on line <?= $trace['line'] ?> with  <?= $e->getMessage() ?> at function <?= $trace['function'] ?>
+    </div>
+    <?php endforeach; ?>
+</div>
+</body>
+</html>
