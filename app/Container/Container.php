@@ -96,7 +96,9 @@ class Container
         dump($dependency);
         die();
 
-//            return $this->resolveReflectedDependency($dependency);
+//            return 'a';
+
+//        return $this->resolveReflectedDependency($dependency);
         }, $constructor->getParameters());
     }
 
