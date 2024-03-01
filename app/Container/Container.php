@@ -41,12 +41,45 @@ class Container
 
     public function get($name)
     {
-        if (!$this->has($name))
-        {
-            throw new NotFoundException('Some text');
+        if ($this->has($name)) {
+            return $this->items[$name]($this);
         }
-        return $this->items[$name]($this);
+        return $this->autowire($name);
     }
+
+    /*
+     * Note I switch out dumps as the v3 lecture proceeds.  Therefore, to anticipate this I have added all the code and will uncomment when I use a particular dump.
+     */
+    public function autowire($name)
+    {
+        if (!class_exists($name)) {
+            throw new NotFoundException;
+        }
+
+//        $reflector = $this->getReflector($name);
+//        dump($reflector);
+//        dump($reflector->isInstantiable());
+//        if (!$reflector->isInstantiable()) {
+//            throw new NotFoundException;
+//        }
+
+//        dump($reflector->getConstructor());
+
+//        if ($constructor = $reflector->getConstructor()) {
+//            return $reflector->newInstanceArgs(
+//                $this->getReflectorConstructorDependencies($constructor)
+//            );
+
+//            $dep = $this->getReflectorConstructorDependencies($constructor);
+
+//
+//            dump($dep);
+//            die();
+
+//        }
+        return new $name();
+    }
+
 
     public function __get($name)
     {
