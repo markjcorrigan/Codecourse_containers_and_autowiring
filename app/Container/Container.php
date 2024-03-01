@@ -20,17 +20,17 @@ class Container
         $this->items[$name] = $closure;
     }
 
-//    public function share($name, callable $closure)
-//    {
-//        $this->items[$name] = function () use ($closure) {
-//            static $resolved;
-//
-//            if (!$resolved) {
-//                $resolved = $closure();
-//            }
-//            return $resolved;
-//        };
-//    }
+    public function share($name, callable $closure)
+    {
+        $this->items[$name] = function () use ($closure) {
+            static $resolved;
+
+            if (!$resolved) {
+                $resolved = $closure();
+            }
+            return $resolved;
+        };
+    }
 
 
     public function has($name)
