@@ -89,10 +89,12 @@ class Container
     }
     protected function getReflectorConstructorDependencies($constructor): array
     {
-        dump($constructor->getParameters());
-        die();
+//        dump($constructor->getParameters());
+//        die();
 
-        return array_map(function () {
+        return array_map(function ($dependency) {
+        dump($dependency);
+        die();
 
 //            return $this->resolveReflectedDependency($dependency);
         }, $constructor->getParameters());
